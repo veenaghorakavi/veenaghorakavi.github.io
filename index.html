@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veena Ghorakavi | Computational Bioinformatics & Drug Discovery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0c0c0e;
+      --bg-secondary: #121215;
+      --bg-tertiary: #1a1a1f;
+      --bg-card: #16161a;
+      --text-primary: #f4f4f5;
+      --text-secondary: #a0a0a8;
+      --text-muted: #6b6b73;
+      --accent: #6d9dc5;
+      --accent-light: #8cb4d4;
+      --accent-glow: rgba(109, 157, 197, 0.15);
+      --secondary-accent: #c4a76c;
+      --border: #2a2a30;
+      --border-subtle: #1f1f24;
+      --gradient-accent: linear-gradient(135deg, #6d9dc5 0%, #8cb4d4 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* Subtle background pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse at 20% 0%, var(--accent-glow) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(196, 167, 108, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 0;
+      background: rgba(12, 12, 14, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 0 5rem;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .hero-content {
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--accent-glow);
+      border: 1px solid rgba(109, 157, 197, 0.2);
+      border-radius: 2px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.75rem, 5vw, 4rem);
+      font-weight: 500;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero h1 .highlight {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-role {
+      font-size: 1.125rem;
+      color: var(--secondary-accent);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .hero-description {
+      font-size: 1.0625rem;
+      color: var(--text-secondary);
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.875rem 1.75rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(109, 157, 197, 0.25);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .hero-visual {
+      position: relative;
+      animation: fadeIn 1s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    .hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+      position: relative;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 2rem;
+      right: 2rem;
+      height: 3px;
+      background: var(--gradient-accent);
+    }
+
+    .affiliation-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .affiliation-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.375rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .affiliation-dept {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .quick-stat {
+      text-align: center;
+    }
+
+    .quick-stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .quick-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.5rem;
+    }
+
+    /* Section Styles */
+    section {
+      padding: 6rem 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--border), transparent);
+    }
+
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* About Section */
+    .about {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 5rem;
+    }
+
+    .about-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.25rem;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .about-heading .accent {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .about-text {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .expertise-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      transition: border-color 0.3s ease;
+    }
+
+    .expertise-item:hover {
+      border-color: var(--accent);
+    }
+
+    .expertise-icon {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      margin-top: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .expertise-text {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+    }
+
+    /* Education Section */
+    .education-timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .education-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--border));
+    }
+
+    .education-item {
+      position: relative;
+      padding: 2rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+      margin-left: 1.5rem;
+    }
+
+    .education-item::before {
+      content: '';
+      position: absolute;
+      left: -2.05rem;
+      top: 2.5rem;
+      width: 12px;
+      height: 12px;
+      background: var(--bg-primary);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+    }
+
+    .education-years {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .education-degree {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.375rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .education-school {
+      font-size: 1rem;
+      color: var(--secondary-accent);
+      margin-bottom: 1rem;
+    }
+
+    .education-thesis {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      padding-left: 1rem;
+      border-left: 2px solid var(--border);
+    }
+
+    /* Experience Section */
+    .experience {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .experience-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .experience-card {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      padding: 2.5rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .experience-card:hover {
+      border-color: var(--accent);
+      transform: translateX(8px);
+    }
+
+    .experience-meta {
+      border-right: 1px solid var(--border-subtle);
+      padding-right: 2rem;
+    }
+
+    .experience-years {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .experience-company {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .experience-content h3 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .experience-content p {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .experience-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .experience-tag {
+      font-size: 0.75rem;
+      padding: 0.375rem 0.75rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+    }
+
+    /* Courses Section */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .course-card {
+      padding: 2rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .course-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gradient-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .course-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .course-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .course-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-glow);
+      border: 1px solid rgba(109, 157, 197, 0.2);
+      margin-bottom: 1.5rem;
+    }
+
+    .course-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--accent);
+    }
+
+    .course-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .course-desc {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Projects Section */
+    .projects {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+    }
+
+    .project-card.featured {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 3rem;
+      padding: 3rem;
+    }
+
+    .project-featured-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--secondary-accent);
+      margin-bottom: 1rem;
+    }
+
+    .project-featured-badge svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .project-year {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.375rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-org {
+      font-size: 0.875rem;
+      color: var(--secondary-accent);
+      margin-bottom: 1rem;
+    }
+
+    .project-desc {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      font-size: 0.6875rem;
+      padding: 0.375rem 0.625rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+    }
+
+    /* Publications Section */
+    .publications-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .publication-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      transition: border-color 0.3s ease;
+    }
+
+    .publication-item:hover {
+      border-color: var(--accent);
+    }
+
+    .publication-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+    }
+
+    .publication-icon svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent);
+    }
+
+    .publication-title {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+      color: var(--text-primary);
+    }
+
+    .publication-venue {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* Awards Section */
+    .awards {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .award-card {
+      padding: 2rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .award-card:hover {
+      border-color: var(--secondary-accent);
+    }
+
+    .award-card.highlight {
+      border-left: 3px solid var(--secondary-accent);
+    }
+
+    .award-year {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--secondary-accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    .award-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.125rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .award-org {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* Contact Section */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 5rem;
+    }
+
+    .contact-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-info h2 .accent {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .contact-text {
+      font-size: 1.0625rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .contact-item:hover {
+      color: var(--accent);
+    }
+
+    .contact-item svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent);
+    }
+
+    .contact-form {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 300;
+      transition: border-color 0.3s ease;
+      outline: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    /* Footer */
+    footer {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .footer-logo span {
+      color: var(--accent);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .footer-copy {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .hero-visual {
+        order: -1;
+        max-width: 500px;
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .experience-card {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .experience-meta {
+        border-right: none;
+        border-bottom: 1px solid var(--border-subtle);
+        padding-right: 0;
+        padding-bottom: 1.5rem;
+      }
+
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card.featured {
+        grid-column: span 1;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .awards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        justify-content: center;
+      }
+
+      .quick-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .expertise-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">Veena <span>Ghorakavi</span></a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#courses">Teaching</a></li>
+        <li><a href="#projects">Research</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-tagline">Educator • Researcher • Engineer</div>
+          <h1>Veena <span class="highlight">Ghorakavi</span></h1>
+          <p class="hero-role">Course Director & Faculty Member, Johns Hopkins University</p>
+          <p class="hero-description">Bridging computational sciences and biotechnology through innovative research in high-performance computing, drug discovery, and bioinformatics. Passionate about developing scalable solutions for oncology research and training the next generation of computational biologists.</p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary">
+              Get In Touch
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a href="#projects" class="btn btn-outline">View Research</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card">
+            <div class="affiliation-label">Current Affiliation</div>
+            <div class="affiliation-logo">Johns Hopkins University</div>
+            <div class="affiliation-dept">Whiting School of Engineering<br>Biotechnology Department</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-line"></span>
+        <span class="section-title">About</span>
+      </div>
+      <div class="about-grid">
+        <div>
+          <h2 class="about-heading">Advancing <span class="accent">computational</span> solutions for biomedical research</h2>
+        </div>
+        <div>
+          <p class="about-text">My research focuses on high-performance computing and bioinformatics solutions for oncology drug discovery, next-generation sequencing data analysis, and clinical applications. I develop scalable bioinformatics workflows to process large-scale NGS datasets efficiently, including applications in somatic variant calling and biomarker discovery.</p>
+          <p class="about-text">I collaborate on projects applying machine learning models to genomic and clinical datasets, including EHR-based analyses for precision medicine. My work bridges computational and experimental sciences, fostering critical thinking and preparing students for research and industry roles.</p>
+          <div class="expertise-grid">
+            <div class="expertise-item">
+              <div class="expertise-icon"></div>
+              <span class="expertise-text">High-Performance Computing</span>
+            </div>
+            <div class="expertise-item">
+              <div class="expertise-icon"></div>
+              <span class="expertise-text">Drug Discovery & Development</span>
+            </div>
+            <div class="expertise-item">
+              <div class="expertise-icon"></div>
+              <span class="expertise-text">NGS Workflow Optimization</span>
+            </div>
+            <div class="expertise-item">
+              <div class="expertise-icon"></div>
+              <span class="expertise-text">Machine Learning / AI</span>
+            </div>
+            <div class="expertise-item">
+              <div class="expertise-icon"></div>
+              <span class="expertise-text">Somatic Variant Detection</span>
+            </div>
+            <div class="expertise-item">
+              <div class="expertise-icon"></div>
+              <span class="expertise-text">Electronic Health Records</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section class="education" id="education">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-line"></span>
+        <span class="section-title">Education</span>
+      </div>
+      <div class="education-timeline">
+        <div class="education-item">
+          <div class="education-years">2021 – 2023</div>
+          <h3 class="education-degree">Master of Science, Bioinformatics</h3>
+          <div class="education-school">Johns Hopkins University</div>
+          <p class="education-thesis">Thesis: "Endu: Secure Management of Endometriosis Diagnostic Data Utilizing Anonymization, Distributed Ledger Technology and Wearable Monitoring"<br>Advisor: Dr. Prabhu Rajagopal</p>
+        </div>
+        <div class="education-item">
+          <div class="education-years">2014 – 2019</div>
+          <h3 class="education-degree">Bachelor of Science, Biochemistry</h3>
+          <div class="education-school">Texas A&M University • Minor: Mathematics</div>
+          <p class="education-thesis">Thesis: "Mapping Toxin-Antitoxin Pairs with Prophage Regions in P. mirabilis and P. stuartii"<br>Advisors: Dr. Sing-Hoi Sze, Dr. Aaron Tarone</p>
+        </div>
+        <div class="education-item">
+          <div class="education-years">2015 – 2018</div>
+          <h3 class="education-degree">Bachelor of Science, Computer Science</h3>
+          <div class="education-school">Texas A&M University</div>
+          <p class="education-thesis">Capstone: "Localizing Health Data with Location Data" (Team Lead)<br>Advisor: Dr. Bobak Mortazavi</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="experience" id="experience">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-line"></span>
+        <span class="section-title">Experience</span>
+      </div>
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-meta">
+            <div class="experience-years">2024 – Present</div>
+            <div class="experience-company">Johns Hopkins University</div>
+          </div>
+          <div class="experience-content">
+            <h3>Course Director / Adjunct Faculty</h3>
+            <p>Course Director and Part Time Lecturer in the Whiting School of Engineering and Biotechnology Department. Teaching computational approaches for drug discovery and bioinformatics, equipping students with essential skills for research and industry roles.</p>
+            <div class="experience-tags">
+              <span class="experience-tag">Curriculum Development</span>
+              <span class="experience-tag">Drug Discovery</span>
+              <span class="experience-tag">Bioinformatics</span>
+              <span class="experience-tag">Phylogenetics</span>
+            </div>
+          </div>
+        </div>
+        <div class="experience-card">
+          <div class="experience-meta">
+            <div class="experience-years">2025 – 2026</div>
+            <div class="experience-company">Unicon</div>
+          </div>
+          <div class="experience-content">
+            <h3>AI Engineer II</h3>
+            <p>Developed and refined AI Tutor workflows implementing prompt-engineered tutoring flows for multi-step STEM problem solving. Implemented test-driven development with DeepEval evaluation tests to measure AI response accuracy and reasoning quality.</p>
+            <div class="experience-tags">
+              <span class="experience-tag">Python</span>
+              <span class="experience-tag">AI/ML</span>
+              <span class="experience-tag">DeepEval</span>
+              <span class="experience-tag">SQL</span>
+              <span class="experience-tag">API Development</span>
+            </div>
+          </div>
+        </div>
+        <div class="experience-card">
+          <div class="experience-meta">
+            <div class="experience-years">2019 – 2025</div>
+            <div class="experience-company">Hewlett Packard Enterprise</div>
+          </div>
+          <div class="experience-content">
+            <h3>Systems & Software Engineer II</h3>
+            <p>Orchestrated large-scale, multinode software deployments for DragonHPC distributed runtime project. Developed Python and C++ infrastructure including critical objects, cookbook items, and unit tests. Collaborated with US government groups to define solution requirements.</p>
+            <div class="experience-tags">
+              <span class="experience-tag">HPC</span>
+              <span class="experience-tag">Python</span>
+              <span class="experience-tag">C++</span>
+              <span class="experience-tag">PyTorch</span>
+              <span class="experience-tag">Docker</span>
+              <span class="experience-tag">Jenkins</span>
+            </div>
+          </div>
+        </div>
+        <div class="experience-card">
+          <div class="experience-meta">
+            <div class="experience-years">2023 – 2024</div>
+            <div class="experience-company">IIT Madras</div>
+          </div>
+          <div class="experience-content">
+            <h3>Researcher</h3>
+            <p>Developing computational tools for clinical genomics and integrating electronic health record (EHR) data to enhance disease modeling and biomarker identification. Associated with Plenome and Dr. Prabhu Rajagopal.</p>
+            <div class="experience-tags">
+              <span class="experience-tag">Clinical Genomics</span>
+              <span class="experience-tag">EHR</span>
+              <span class="experience-tag">Biomarker Discovery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses Section -->
+  <section class="courses" id="courses">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <span class="section-line"></span>
+        <span class="section-title">Teaching</span>
+      </div>
+      <div class="courses-grid">
+        <div class="course-card">
+          <div class="course-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+            </svg>
+          </div>
+          <h3 class="course-title">Computational Drug Discovery and Development</h3>
+          <p class="course-desc">Covering molecular modeling, structure- and ligand-based screening, pharmacophore modeling, QSAR models, computational toxicology, and AI applications in drug discovery.</p>
+        </div>
+        <div class="course-card">
+          <div class="course-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+          </div>
+          <h3 class="course-title">Practical Computer Concepts for Bioinformatics</h3>
+          <p class="course-desc">Essential programming, data analysis, and computational methods for bioinformatics, focusing on Bash, SQL, and Python.</p>
+        </div>
+        <div class="course-card">
+          <div class="course-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+            </svg>
+          </div>
+          <h3 class="course-title">Molecular Phylogenetics Techniques</h3>
+          <p class="course-desc">Fundamental concepts of evolutionary relationships, sequence alignment, phylogenetic tree construction, and comparative genomics using computational tools in R.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="projects" id="projects">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <span class="section-line"></span>
+        <span class="section-title">Selected Research</span>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card featured">
+          <div>
+            <div class="project-featured-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+              </svg>
+              Award-Winning Research
+            </div>
+            <div class="project-year">2023 – Present</div>
+            <h3 class="project-title">Endu: Secure Endometriosis Diagnostic Platform</h3>
+            <div class="project-org">Johns Hopkins / IIT Madras / Plenome</div>
+          </div>
+          <div>
+            <p class="project-desc">Developed an innovative application utilizing electronic health record machine learning algorithms, data anonymization, wearable data integration, decentralized hyperledgers, and genomic data targets for endometriosis diagnosis and management. Winner of the Patrick Cummings Award AY 2023/2024. Currently under patent review.</p>
+            <div class="project-tags">
+              <span class="project-tag">Machine Learning</span>
+              <span class="project-tag">Blockchain</span>
+              <span class="project-tag">EHR</span>
+              <span class="project-tag">Wearables</span>
+              <span class="project-tag">Genomics</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-year">2021 – 2025</div>
+          <h3 class="project-title">DragonHPC</h3>
+          <div class="project-org">Hewlett Packard Enterprise</div>
+          <p class="project-desc">Large-scale, multinode software deployments for distributed runtime projects. Utilized pandarallel, PyTorch, and scikit-learn for drug discovery applications.</p>
+          <div class="project-tags">
+            <span class="project-tag">HPC</span>
+            <span class="project-tag">PyTorch</span>
+            <span class="project-tag">Python</span>
+            <span class="project-tag">C++</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-year">2019 – 2020</div>
+          <h3 class="project-title">PolyMapper</h3>
+          <div class="project-org">Texas A&M / UBC HackSeq</div>
+          <p class="project-desc">Modelled polypharmacy interactions using Javascript, R, and CDC databases to identify drug combinations with untoward effects.</p>
+          <div class="project-tags">
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">R</span>
+            <span class="project-tag">CDC Data</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-year">2018 – 2020</div>
+          <h3 class="project-title">Infectious Disease Tracking</h3>
+          <div class="project-org">Texas A&M / UBC HackSeq</div>
+          <p class="project-desc">Blockchain-based platform using Corda, Flask, and JavaScript to track the spread of infectious diseases.</p>
+          <div class="project-tags">
+            <span class="project-tag">Blockchain</span>
+            <span class="project-tag">Corda</span>
+            <span class="project-tag">Flask</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-year">2017 – 2020</div>
+          <h3 class="project-title">Toxin-Antitoxin Mapping</h3>
+          <div class="project-org">Texas A&M University</div>
+          <p class="project-desc">Python automation for Circos plot generation mapping toxin-antitoxin pairs with prophage regions in bacterial species.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Circos</span>
+            <span class="project-tag">Genomics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications Section -->
+  <section class="publications" id="publications">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <span class="section-line"></span>
+        <span class="section-title">Publications</span>
+      </div>
+      <div class="publications-list">
+        <div class="publication-item">
+          <div class="publication-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+            </svg>
+          </div>
+          <div>
+            <div class="publication-title">Endu: Secure Management of Endometriosis Diagnostic Data Utilizing Anonymization, Distributed Ledger Technology and Wearable Monitoring</div>
+            <div class="publication-venue">Master's Thesis, Johns Hopkins University • December 2023</div>
+          </div>
+        </div>
+        <div class="publication-item">
+          <div class="publication-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <div>
+            <div class="publication-title">Types of Regression Techniques in ML</div>
+            <div class="publication-venue">GeeksforGeeks • December 2023</div>
+          </div>
+        </div>
+        <div class="publication-item">
+          <div class="publication-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <div>
+            <div class="publication-title">What is a Neural Network? A Beginner's Guide</div>
+            <div class="publication-venue">GeeksforGeeks • January 2024</div>
+          </div>
+        </div>
+        <div class="publication-item">
+          <div class="publication-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+            </svg>
+          </div>
+          <div>
+            <div class="publication-title">Neural Arithmetic Logic Unit</div>
+            <div class="publication-venue">Topcoder • August 2018</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Awards Section -->
+  <section class="awards" id="awards">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">07</span>
+        <span class="section-line"></span>
+        <span class="section-title">Awards & Honors</span>
+      </div>
+      <div class="awards-grid">
+        <div class="award-card highlight">
+          <div class="award-year">2023/2024</div>
+          <h3 class="award-title">Patrick Cummings Award — First Place</h3>
+          <div class="award-org">Johns Hopkins University</div>
+        </div>
+        <div class="award-card">
+          <div class="award-year">2014</div>
+          <h3 class="award-title">National Merit Scholar</h3>
+          <div class="award-org">Texas A&M University</div>
+        </div>
+        <div class="award-card">
+          <div class="award-year">2014</div>
+          <h3 class="award-title">President's Endowed Scholarship</h3>
+          <div class="award-org">Texas A&M University</div>
+        </div>
+        <div class="award-card">
+          <div class="award-year">2013</div>
+          <h3 class="award-title">TAMS Summer Research Scholarship</h3>
+          <div class="award-org">University of North Texas</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">08</span>
+        <span class="section-line"></span>
+        <span class="section-title">Contact</span>
+      </div>
+      <div class="contact-info" style="max-width: 700px;">
+          <h2>Let's <span class="accent">collaborate</span> on your next project</h2>
+          <p class="contact-text">I'm always interested in discussing new research collaborations, teaching opportunities, and innovative projects at the intersection of computational biology and drug discovery.</p>
+          <div class="contact-details">
+            <a href="#" class="contact-item">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+              </svg>
+              Johns Hopkins University, Baltimore, MD
+            </a>
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">Veena <span>Ghorakavi</span></div>
+        <div class="footer-links">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#courses">Teaching</a>
+          <a href="#projects">Research</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-copy">© 2026 Veena Ghorakavi. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
